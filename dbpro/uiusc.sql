@@ -1,0 +1,18 @@
+CREATE TABLE Member (ID int(10) NOT NULL AUTO_INCREMENT, Name varchar(25) NOT NULL, Email varchar(25) NOT NULL, Gender varchar(25) NOT NULL, Dept varchar(25) NOT NULL, Contact int(10) NOT NULL, Position int(10) NOT NULL, Password int(10) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Media (File_Path varchar(25) NOT NULL, Upload_date int(10) NOT NULL, M_ID int(10) NOT NULL AUTO_INCREMENT, MemberID int(10) NOT NULL, PRIMARY KEY (M_ID));
+CREATE TABLE Apply (Status varchar(25) NOT NULL, PRIMARY KEY (Status));
+CREATE TABLE Requ_Post (Ruels varchar(25) NOT NULL, Start_date int(10) NOT NULL, End_date int(10) NOT NULL, ApplyStatus varchar(25) NOT NULL, MemberID int(10) NOT NULL, PRIMARY KEY (Ruels));
+CREATE TABLE Admin (Name varchar(25) NOT NULL, Password int(10) NOT NULL, Email varchar(25) NOT NULL, MemberID int(10) NOT NULL, AdminEmail varchar(25) NOT NULL, MemberID2 int(10) NOT NULL, EventName varchar(25) NOT NULL, ApplyStatus varchar(25) NOT NULL, ResultName varchar(25) NOT NULL, Requ_PostRuels varchar(25) NOT NULL, PRIMARY KEY (Email));
+CREATE TABLE Result (Name varchar(25) NOT NULL, PRIMARY KEY (Name));
+CREATE TABLE Event (Name varchar(25) NOT NULL, Start_date int(10) NOT NULL, End_date int(10) NOT NULL, Rating int(10) NOT NULL, Details varchar(25) NOT NULL, MemberID int(10) NOT NULL, ReviewID int(10) NOT NULL, PRIMARY KEY (Name));
+CREATE TABLE Review (ID int(10) NOT NULL AUTO_INCREMENT, Name varchar(25) NOT NULL, PRIMARY KEY (ID));
+ALTER TABLE Admin ADD INDEX FKAdmin383560 (MemberID2), ADD CONSTRAINT FKAdmin383560 FOREIGN KEY (MemberID2) REFERENCES Member (ID);
+ALTER TABLE Media ADD INDEX FKMedia492652 (MemberID), ADD CONSTRAINT FKMedia492652 FOREIGN KEY (MemberID) REFERENCES Member (ID);
+ALTER TABLE Admin ADD INDEX FKAdmin897109 (EventName), ADD CONSTRAINT FKAdmin897109 FOREIGN KEY (EventName) REFERENCES Event (Name);
+ALTER TABLE Admin ADD INDEX FKAdmin786921 (ApplyStatus), ADD CONSTRAINT FKAdmin786921 FOREIGN KEY (ApplyStatus) REFERENCES Apply (Status);
+ALTER TABLE Admin ADD INDEX FKAdmin597548 (ResultName), ADD CONSTRAINT FKAdmin597548 FOREIGN KEY (ResultName) REFERENCES Result (Name);
+ALTER TABLE Requ_Post ADD INDEX FKRequ_Post413363 (ApplyStatus), ADD CONSTRAINT FKRequ_Post413363 FOREIGN KEY (ApplyStatus) REFERENCES Apply (Status);
+ALTER TABLE Requ_Post ADD INDEX FKRequ_Post617954 (MemberID), ADD CONSTRAINT FKRequ_Post617954 FOREIGN KEY (MemberID) REFERENCES Member (ID);
+ALTER TABLE Event ADD INDEX FKEvent612059 (MemberID), ADD CONSTRAINT FKEvent612059 FOREIGN KEY (MemberID) REFERENCES Member (ID);
+ALTER TABLE Admin ADD INDEX FKAdmin318155 (Requ_PostRuels), ADD CONSTRAINT FKAdmin318155 FOREIGN KEY (Requ_PostRuels) REFERENCES Requ_Post (Ruels);
+ALTER TABLE Event ADD INDEX FKEvent689499 (ReviewID), ADD CONSTRAINT FKEvent689499 FOREIGN KEY (ReviewID) REFERENCES Review (ID);
